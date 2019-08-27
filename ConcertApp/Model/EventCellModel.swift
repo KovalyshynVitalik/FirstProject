@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct EventCellModel{
+struct EventCellModel {
     let title: String
     let imageName: String
     
