@@ -99,9 +99,9 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @objc func openFullScreenImageViewController(){
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let fullScreenImageViewController = storyBoard.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
-        fullScreenImageViewController.imageName = event?.imageName ?? ""
-        self.navigationController?.pushViewController(fullScreenImageViewController, animated: true)
+        let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
+        ItemViewController.imageName = event?.imageName ?? ""
+        self.navigationController?.pushViewController(itemViewController, animated: true)
     }
     
     func readJSONFromFile(fileName: String) -> [Concert]? {
@@ -140,9 +140,9 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let fullScreenImageViewController = storyBoard.instantiateViewController(withIdentifier: "FullScreenImageViewController") as! FullScreenImageViewController
-        fullScreenImageViewController.imageName = eventImageNames[indexPath.row].imageName!
-        self.navigationController?.pushViewController(fullScreenImageViewController, animated: true)
+        let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
+        itemViewController.imageName = eventImageNames[indexPath.row].imageName!
+        self.navigationController?.pushViewController(itemViewController, animated: true)
     }
     
     
