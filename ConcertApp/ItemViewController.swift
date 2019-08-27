@@ -25,8 +25,7 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         scrollView.delegate = self
-        self.scrollView.minimumZoomScale = 1.0
-        self.scrollView.maximumZoomScale = 6.0
+    
         
         if let name = imageName {
             self.img.image = UIImage(named: name)
@@ -42,7 +41,8 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
             imgView.image = UIImage(named: images[index])
             self.scrollView.addSubview(imgView)
             
-            
+            self.scrollView.minimumZoomScale = 1.0
+            self.scrollView.maximumZoomScale = 6.0
         }
 
         scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(images.count)), height: scrollView.frame.size.height)

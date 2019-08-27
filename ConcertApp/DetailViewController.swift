@@ -100,7 +100,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
-        ItemViewController.imageName = event?.imageName ?? ""
+        itemViewController.imageName = event?.imageName ?? ""
         self.navigationController?.pushViewController(itemViewController, animated: true)
     }
     
