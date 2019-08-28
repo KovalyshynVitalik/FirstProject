@@ -46,22 +46,22 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         super.viewDidLoad()
         
         
-   //     let imageArray = [UIImage(named: self.images?.imageName.self ?? "Beyonce",]
-        
-       
 
+        for count in 0 ... 2 {
+            let itemViewController = storyboard?.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
+              itemViewController.imageName = "Beyonce"
+            controllers.append(itemViewController)
+        }
+        pageController?.setViewControllers([controllers[0]], direction: .forward, animated: true)
+        
+        
+        
         pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageController?.dataSource = self
         pageController?.delegate = self
         addChild(pageController!)
         view.addSubview(pageController!.view)
         view.frame = CGRect(x: 0, y: 200, width: 400, height: 400)
-    
-    
-    
-       
-    
-            
         }
  
     

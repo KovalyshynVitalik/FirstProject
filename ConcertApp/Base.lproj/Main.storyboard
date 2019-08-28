@@ -90,7 +90,7 @@
                     <navigationItem key="navigationItem" id="Y9W-5o-aUi"/>
                     <connections>
                         <outlet property="tableView" destination="lqY-Rx-B6w" id="YDL-yu-ANk"/>
-                        <segue destination="b5e-5m-b3T" kind="show" id="4Xe-2e-5MD"/>
+                        <segue destination="b5e-5m-b3T" kind="show" identifier="eventDetail" id="4Xe-2e-5MD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBa-pS-chG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -205,7 +205,7 @@
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="G7t-4x-wcv" customClass="PageViewController" customModule="ConcertApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Hoy-N0-472"/>
                     <connections>
-                        <segue destination="V3Z-dS-I6c" kind="show" id="B9e-ea-p0w"/>
+                        <segue destination="V3Z-dS-I6c" kind="show" identifier="pageView" id="B9e-ea-p0w"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlk-nR-zBC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,9 +220,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="chz-pj-tsU">
-                                <rect key="frame" x="110" y="499" width="155" height="37"/>
-                            </pageControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-D6-r6h">
                                 <rect key="frame" x="0.0" y="64" width="375" height="427"/>
                                 <subviews>
@@ -231,24 +228,28 @@
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="top" secondItem="6cZ-D6-r6h" secondAttribute="top" id="31B-II-Nhb"/>
-                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="leading" secondItem="6cZ-D6-r6h" secondAttribute="leading" id="4av-3B-kfK"/>
-                                    <constraint firstAttribute="bottom" secondItem="UzQ-M4-Uf1" secondAttribute="bottom" id="O3T-W1-7EZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="UzQ-M4-Uf1" secondAttribute="trailing" id="SEy-3z-Zcl"/>
-                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="centerX" secondItem="6cZ-D6-r6h" secondAttribute="centerX" id="SVY-Ak-jJo"/>
-                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="centerY" secondItem="6cZ-D6-r6h" secondAttribute="centerY" id="wTU-6k-SIq"/>
+                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="centerX" secondItem="6cZ-D6-r6h" secondAttribute="centerX" id="MFX-6T-RT7"/>
+                                    <constraint firstAttribute="bottom" secondItem="UzQ-M4-Uf1" secondAttribute="bottom" id="RYx-bE-6Ll"/>
+                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="height" secondItem="6cZ-D6-r6h" secondAttribute="height" id="WYX-vM-8L5"/>
+                                    <constraint firstAttribute="trailing" secondItem="UzQ-M4-Uf1" secondAttribute="trailing" id="bSF-hA-1Wq"/>
+                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="top" secondItem="6cZ-D6-r6h" secondAttribute="top" id="c74-5v-YMB"/>
+                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="leading" secondItem="6cZ-D6-r6h" secondAttribute="leading" id="vCW-UR-buN"/>
+                                    <constraint firstItem="UzQ-M4-Uf1" firstAttribute="width" secondItem="6cZ-D6-r6h" secondAttribute="width" id="wQK-cj-YDN"/>
                                 </constraints>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="chz-pj-tsU">
+                                <rect key="frame" x="80" y="610" width="215" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.58532528949999996" blue="0.16693522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6cZ-D6-r6h" firstAttribute="centerX" secondItem="chz-pj-tsU" secondAttribute="centerX" id="GsA-4L-IUW"/>
-                            <constraint firstAttribute="trailing" secondItem="6cZ-D6-r6h" secondAttribute="trailing" id="Rmk-pk-fqf"/>
-                            <constraint firstItem="chz-pj-tsU" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" constant="110" id="RxT-dn-mxZ"/>
-                            <constraint firstItem="chz-pj-tsU" firstAttribute="top" secondItem="6cZ-D6-r6h" secondAttribute="bottom" constant="8" symbolic="YES" id="b2k-a7-WdK"/>
-                            <constraint firstItem="6cZ-D6-r6h" firstAttribute="leading" secondItem="tHm-NX-iGv" secondAttribute="leading" id="plT-Xu-8Tc"/>
-                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="chz-pj-tsU" secondAttribute="bottom" constant="131" id="rsj-R3-Uv0"/>
-                            <constraint firstItem="6cZ-D6-r6h" firstAttribute="top" secondItem="Snm-Sb-kEJ" secondAttribute="top" id="y2P-v2-vCW"/>
+                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="chz-pj-tsU" secondAttribute="trailing" constant="80" id="0eI-6U-EZt"/>
+                            <constraint firstItem="6cZ-D6-r6h" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" id="A12-NH-Eu2"/>
+                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="chz-pj-tsU" secondAttribute="bottom" constant="20" id="COS-sY-sqa"/>
+                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="6cZ-D6-r6h" secondAttribute="trailing" id="PmQ-sp-zXq"/>
+                            <constraint firstItem="6cZ-D6-r6h" firstAttribute="top" secondItem="Snm-Sb-kEJ" secondAttribute="top" id="aFq-kW-Qks"/>
+                            <constraint firstItem="chz-pj-tsU" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" constant="80" id="cMQ-we-4ED"/>
+                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="6cZ-D6-r6h" secondAttribute="bottom" constant="176" id="dg9-vr-mOq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Snm-Sb-kEJ"/>
                     </view>

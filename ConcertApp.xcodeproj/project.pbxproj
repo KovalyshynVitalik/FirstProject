@@ -35,7 +35,7 @@
 		F09A18462307407C0021092E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewEventCell.swift; sourceTree = "<group>"; };
 		F09A184E2309CFD10021092E /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
-		F09A18502309D02A0021092E /* concertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = concertModel.swift; sourceTree = "<group>"; };
+		F09A18502309D02A0021092E /* concertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = concertModel.swift; path = ../concertModel.swift; sourceTree = "<group>"; };
 		F09A18542313EEF70021092E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		F09A185623141B350021092E /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +83,6 @@
 				CE26A98D22F213DB0082486B /* LaunchScreen.storyboard */,
 				CE26A99022F213DB0082486B /* Info.plist */,
 				F09A184E2309CFD10021092E /* events.json */,
-				F09A18502309D02A0021092E /* concertModel.swift */,
 			);
 			path = ConcertApp;
 			sourceTree = "<group>";
@@ -92,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				CE76C2AC22FB4C20003AC834 /* EventCellModel.swift */,
+				F09A18502309D02A0021092E /* concertModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

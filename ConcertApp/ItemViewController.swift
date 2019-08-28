@@ -46,7 +46,7 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
         }
 
         scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(images.count)), height: scrollView.frame.size.height)
-        scrollView.delegate = self
+    
 
         
     }

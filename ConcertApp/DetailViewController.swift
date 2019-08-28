@@ -65,6 +65,9 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
    @objc func changeImage() {
     
+    if counter == imgArray.count {
+        counter = 0
+    }
     if counter < imgArray.count {
         let index = IndexPath.init(item: counter, section: 0)
         self.eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)

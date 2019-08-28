@@ -11,4 +11,5 @@ import Foundation
 struct Concert: Decodable {
     var imageName: String?
     
+    
 }
