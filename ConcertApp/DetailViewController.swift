@@ -10,21 +10,14 @@ import UIKit
 
 class DetailViewController: UIViewController, UITextViewDelegate {
     
-
     
-   
     
-    public var images: Concert?
-    
-
-    var event: Event?
-    
-    var eventImageNames = [Concert]() {
+    var eventImageNames: ConcertDetails? {
         didSet {
-            self.eventCollectionView.reloadData()
+            
         }
     }
-
+    
     @IBOutlet weak var lbl: UILabel!
     @IBOutlet weak var eventCollectionView: UICollectionView!
     @IBOutlet weak var textView: UITextView!
@@ -38,63 +31,53 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
     var timer = Timer()
     var counter = 0
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-      
         
-       
         setUpUI()
-        self.eventImageNames = readJSONFromFile(fileName: "events")!
+
         print()
         
         textSetup()
         
         pageView.numberOfPages = imgArray.count
         pageView.currentPage = 0
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
-
+        
+    }
+    
+    
+    @objc func changeImage() {
+        
+        if counter == imgArray.count {
+            counter = 0
         }
-
-    }
-    
-    
-   @objc func changeImage() {
-    
-    if counter == imgArray.count {
-        counter = 0
-    }
-    if counter < imgArray.count {
-        let index = IndexPath.init(item: counter, section: 0)
-        self.eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-        pageView.currentPage = counter
-        counter += 1
-        
-    } else {
-        counter = 1
-        let index = IndexPath.init(item: counter, section: 0)
-        self.eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
-        pageView.currentPage = counter
-        counter = 1
+        if counter < imgArray.count {
+            let index = IndexPath.init(item: counter, section: 0)
+            self.eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            pageView.currentPage = counter
+            counter += 1
+            
+        } else {
+            counter = 1
+            let index = IndexPath.init(item: counter, section: 0)
+            self.eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            pageView.currentPage = counter
+            counter = 1
+            
+        }
         
     }
-        
-    }
-   
+    
     func textSetup() {
-        self.textView.text = event?.textName
+        self.textView.text = self.eventImageNames?.concertInfo
     }
-        
+    
     func setUpUI() {
-        self.lbl.text = event?.name
+        self.lbl.text = self.eventImageNames?.concertName
     }
-    
-    
-    
     
     
     
@@ -103,22 +86,9 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
-        itemViewController.imageName = event?.imageName ?? ""
+        
+        
         self.navigationController?.pushViewController(itemViewController, animated: true)
-    }
-    
-    func readJSONFromFile(fileName: String) -> [Concert]? {
-        if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
-            do {
-                let fileUrl = URL(fileURLWithPath: path)
-                
-                let data = try Data(contentsOf: fileUrl, options: .mappedIfSafe)
-                
-                let model = try JSONDecoder().decode([Concert].self, from: data)
-                return model
-            } catch { }
-        }
-        return nil
     }
     
     
@@ -127,27 +97,29 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 
 
 extension DetailViewController: UICollectionViewDataSource,UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return eventImageNames.count
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
-        if let imageName = eventImageNames[indexPath.row].imageName {
-            cell.imageView.image = UIImage(named: imageName)
+        
+        if let items = self.eventImageNames {
+            cell.imageView.image = UIImage(named:  items.concertImageNames[indexPath.row])
         }
         
         return cell
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return eventImageNames?.concertImageNames.count ?? 0
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
-        itemViewController.imageName = eventImageNames[indexPath.row].imageName!
-        self.navigationController?.pushViewController(itemViewController, animated: true)
+        let pageViewController = storyBoard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
+        pageViewController.images = self.eventImageNames?.concertImageNames
+        self.navigationController?.pushViewController(pageViewController, animated: true)
     }
-    
     
     
 }

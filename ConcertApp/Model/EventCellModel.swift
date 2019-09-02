@@ -11,5 +11,5 @@ import Foundation
 struct EventCellModel {
     let title: String
     let imageName: String
-    
+    let imageNames: [String]
 }

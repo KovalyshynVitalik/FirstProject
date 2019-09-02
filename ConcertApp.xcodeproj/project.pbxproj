@@ -14,10 +14,9 @@
 		CE76C2A722F8B10E003AC834 /* EventListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE76C2A622F8B10E003AC834 /* EventListTableViewController.swift */; };
 		CE76C2A922F8B30D003AC834 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE76C2A822F8B30D003AC834 /* EventTableViewCell.swift */; };
 		CE76C2AD22FB4C20003AC834 /* EventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE76C2AC22FB4C20003AC834 /* EventCellModel.swift */; };
+		F0448820231CF9F000A5BDBA /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044881F231CF9F000A5BDBA /* ArtistModel.swift */; };
 		F09A18472307407C0021092E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A18462307407C0021092E /* DetailViewController.swift */; };
 		F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */; };
-		F09A184F2309CFD10021092E /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = F09A184E2309CFD10021092E /* events.json */; };
-		F09A18512309D02A0021092E /* concertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A18502309D02A0021092E /* concertModel.swift */; };
 		F09A18552313EEF70021092E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A18542313EEF70021092E /* PageViewController.swift */; };
 		F09A185723141B350021092E /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A185623141B350021092E /* ItemViewController.swift */; };
 /* End PBXBuildFile section */
@@ -32,10 +31,9 @@
 		CE76C2A622F8B10E003AC834 /* EventListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventListTableViewController.swift; path = ViewController/EventListTableViewController.swift; sourceTree = "<group>"; };
 		CE76C2A822F8B30D003AC834 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventTableViewCell.swift; path = Cell/EventTableViewCell.swift; sourceTree = "<group>"; };
 		CE76C2AC22FB4C20003AC834 /* EventCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellModel.swift; sourceTree = "<group>"; };
+		F044881F231CF9F000A5BDBA /* ArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistModel.swift; sourceTree = "<group>"; };
 		F09A18462307407C0021092E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewEventCell.swift; sourceTree = "<group>"; };
-		F09A184E2309CFD10021092E /* events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
-		F09A18502309D02A0021092E /* concertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = concertModel.swift; path = ../concertModel.swift; sourceTree = "<group>"; };
 		F09A18542313EEF70021092E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		F09A185623141B350021092E /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +80,6 @@
 				CE26A98B22F213DB0082486B /* Assets.xcassets */,
 				CE26A98D22F213DB0082486B /* LaunchScreen.storyboard */,
 				CE26A99022F213DB0082486B /* Info.plist */,
-				F09A184E2309CFD10021092E /* events.json */,
 			);
 			path = ConcertApp;
 			sourceTree = "<group>";
@@ -91,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				CE76C2AC22FB4C20003AC834 /* EventCellModel.swift */,
-				F09A18502309D02A0021092E /* concertModel.swift */,
+				F044881F231CF9F000A5BDBA /* ArtistModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -155,7 +152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE26A98F22F213DB0082486B /* LaunchScreen.storyboard in Resources */,
-				F09A184F2309CFD10021092E /* events.json in Resources */,
 				CE26A98C22F213DB0082486B /* Assets.xcassets in Resources */,
 				CE26A98A22F213D90082486B /* Main.storyboard in Resources */,
 			);
@@ -172,7 +168,7 @@
 				F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */,
 				CE26A98522F213D90082486B /* AppDelegate.swift in Sources */,
 				F09A18472307407C0021092E /* DetailViewController.swift in Sources */,
-				F09A18512309D02A0021092E /* concertModel.swift in Sources */,
+				F0448820231CF9F000A5BDBA /* ArtistModel.swift in Sources */,
 				CE76C2AD22FB4C20003AC834 /* EventCellModel.swift in Sources */,
 				F09A18552313EEF70021092E /* PageViewController.swift in Sources */,
 				F09A185723141B350021092E /* ItemViewController.swift in Sources */,
@@ -323,7 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = HU7XP8Z9N3;
 				INFOPLIST_FILE = ConcertApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -341,7 +337,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = HU7XP8Z9N3;
 				INFOPLIST_FILE = ConcertApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -204,9 +204,6 @@
             <objects>
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="G7t-4x-wcv" customClass="PageViewController" customModule="ConcertApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Hoy-N0-472"/>
-                    <connections>
-                        <segue destination="V3Z-dS-I6c" kind="show" identifier="pageView" id="B9e-ea-p0w"/>
-                    </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jlk-nR-zBC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -221,10 +218,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-D6-r6h">
-                                <rect key="frame" x="0.0" y="64" width="375" height="427"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="471"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UzQ-M4-Uf1">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="427"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="471"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -237,25 +234,18 @@
                                     <constraint firstItem="UzQ-M4-Uf1" firstAttribute="width" secondItem="6cZ-D6-r6h" secondAttribute="width" id="wQK-cj-YDN"/>
                                 </constraints>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="chz-pj-tsU">
-                                <rect key="frame" x="80" y="610" width="215" height="37"/>
-                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.58532528949999996" blue="0.16693522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="chz-pj-tsU" secondAttribute="trailing" constant="80" id="0eI-6U-EZt"/>
                             <constraint firstItem="6cZ-D6-r6h" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" id="A12-NH-Eu2"/>
-                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="chz-pj-tsU" secondAttribute="bottom" constant="20" id="COS-sY-sqa"/>
                             <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="6cZ-D6-r6h" secondAttribute="trailing" id="PmQ-sp-zXq"/>
                             <constraint firstItem="6cZ-D6-r6h" firstAttribute="top" secondItem="Snm-Sb-kEJ" secondAttribute="top" id="aFq-kW-Qks"/>
-                            <constraint firstItem="chz-pj-tsU" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" constant="80" id="cMQ-we-4ED"/>
                             <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="6cZ-D6-r6h" secondAttribute="bottom" constant="176" id="dg9-vr-mOq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Snm-Sb-kEJ"/>
                     </view>
                     <connections>
                         <outlet property="img" destination="UzQ-M4-Uf1" id="IxM-l5-kuJ"/>
-                        <outlet property="pageControl" destination="chz-pj-tsU" id="F3F-QZ-l2Y"/>
                         <outlet property="scrollView" destination="6cZ-D6-r6h" id="E2d-Lr-y8K"/>
                     </connections>
                 </viewController>
