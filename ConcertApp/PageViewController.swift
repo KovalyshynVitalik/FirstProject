@@ -11,7 +11,7 @@ import UIKit
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate{
     
     var event: Event?
-    var pageController: UIPageViewController?
+    var pageController: UIPageViewController!
     var controllers = [UIViewController]()
     public var images: [String]?
     
@@ -42,6 +42,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,31 +52,31 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         
         //MARK: populate UI with controllers
         populateWithControllers()
-        
+        pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageController?.dataSource = self
+        pageController?.delegate = self
         
         if !controllers.isEmpty {
             var array = [UIViewController]()
             array.append(controllers.first!)
             
-            
-            self.setViewControllers(array, direction: .forward, animated: true, completion: nil)
+            pageController.setViewControllers(array, direction: .forward, animated: true, completion: nil)
             
         }
         
-        //        self.setViewControllers([controllers[3]], direction: .forward, animated: true )
-        //         self.setViewControllers([controllers[0]], direction: .forward, animated: true)
+        
+        guard let pageVC = self.pageController else {
+            return
+        }
         
         
-        
-        pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pageController?.dataSource = self
-        pageController?.delegate = self
-        addChild(pageController!)
-        view.addSubview(pageController!.view)
+        addChild(pageVC)
+        view.addSubview(pageVC.view)
         view.frame = CGRect(x: 0, y: 200, width: 400, height: 400)
     }
     
     
+
     
     func populateWithControllers() {
         
@@ -86,9 +87,5 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             itemViewController.imageName = imageName
             controllers.append(itemViewController)
         }
-        
-        print()
-    }
-    
-    
+    }    
 }

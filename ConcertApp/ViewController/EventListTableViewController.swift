@@ -81,7 +81,7 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
             cell.img.image = UIImage(named:list[indexPath.row].imageName)
             
         }
-    
+
         return cell
     }
     

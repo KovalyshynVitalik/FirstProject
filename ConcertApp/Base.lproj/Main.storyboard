@@ -157,7 +157,7 @@
                                 </connections>
                             </collectionView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n0f-mO-F6o">
-                                <rect key="frame" x="20" y="368" width="335" height="226"/>
+                                <rect key="frame" x="0.0" y="368" width="375" height="226"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -170,9 +170,9 @@
                                 <rect key="frame" x="20" y="327" width="335" height="37"/>
                             </pageControl>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.95087401095966895" blue="0.31419119407673135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.31246108244442872" green="0.54262542241655032" blue="0.61457011421319796" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="n0f-mO-F6o" firstAttribute="trailing" secondItem="IWr-Ki-BiR" secondAttribute="trailing" id="8uO-v9-tzn"/>
+                            <constraint firstItem="n0f-mO-F6o" firstAttribute="trailing" secondItem="IWr-Ki-BiR" secondAttribute="trailing" constant="20" id="8uO-v9-tzn"/>
                             <constraint firstItem="ngf-QB-Frs" firstAttribute="leading" secondItem="dDp-UI-eEx" secondAttribute="leading" constant="20" id="EaS-PY-wvU"/>
                             <constraint firstItem="dDp-UI-eEx" firstAttribute="trailing" secondItem="ngf-QB-Frs" secondAttribute="trailing" constant="20" id="J95-83-SJ3"/>
                             <constraint firstItem="n0f-mO-F6o" firstAttribute="top" secondItem="C2W-ca-AVG" secondAttribute="bottom" constant="4" id="LNy-ZA-0nt"/>
@@ -183,7 +183,7 @@
                             <constraint firstItem="C2W-ca-AVG" firstAttribute="leading" secondItem="td1-pD-Gzs" secondAttribute="leading" id="iWJ-9I-Xep"/>
                             <constraint firstItem="C2W-ca-AVG" firstAttribute="bottom" secondItem="IWr-Ki-BiR" secondAttribute="bottom" id="jsd-xT-60A"/>
                             <constraint firstItem="ngf-QB-Frs" firstAttribute="top" secondItem="dDp-UI-eEx" secondAttribute="top" constant="40" id="rQ3-kd-wml"/>
-                            <constraint firstItem="n0f-mO-F6o" firstAttribute="leading" secondItem="IWr-Ki-BiR" secondAttribute="leading" id="ucW-Rg-TQ0"/>
+                            <constraint firstItem="n0f-mO-F6o" firstAttribute="leading" secondItem="IWr-Ki-BiR" secondAttribute="leading" constant="-20" id="ucW-Rg-TQ0"/>
                             <constraint firstItem="IWr-Ki-BiR" firstAttribute="leading" secondItem="dDp-UI-eEx" secondAttribute="leading" constant="20" id="xqg-R8-yf5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dDp-UI-eEx"/>
@@ -235,7 +235,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.58532528949999996" blue="0.16693522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6cZ-D6-r6h" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" id="A12-NH-Eu2"/>
                             <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="6cZ-D6-r6h" secondAttribute="trailing" id="PmQ-sp-zXq"/>

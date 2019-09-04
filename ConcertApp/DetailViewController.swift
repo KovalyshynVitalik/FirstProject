@@ -25,9 +25,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
     
     
-    let imgArray = [UIImage(named: "Beyonce"),
-                    UIImage(named: "eminem"),
-                    UIImage(named: "Drake")]
+    var imgArray: [UIImage] = []
     
     var timer = Timer()
     var counter = 0
@@ -35,16 +33,27 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        guard let item = eventImageNames else { return }
+        for imageName in item.concertImageNames {
+            if let image = UIImage(named: imageName) {
+                imgArray.append(image)
+            }
+            
+        }
+        
         
         
         setUpUI()
-
-        print()
         
+
         textSetup()
         
         pageView.numberOfPages = imgArray.count
         pageView.currentPage = 0
+        
+        
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
         
     }
     
@@ -120,6 +129,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
         pageViewController.images = self.eventImageNames?.concertImageNames
         self.navigationController?.pushViewController(pageViewController, animated: true)
     }
+    
     
     
 }
