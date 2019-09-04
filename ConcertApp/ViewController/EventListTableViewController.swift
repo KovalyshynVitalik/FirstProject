@@ -96,4 +96,16 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let currentImage =
+//    }
+//
+//}
+
+//extension UIImage {
+//    func getCropRatio() -> CGFloat {
+//        let withRatio = CGFloat(self.size.width / self.size.height)
+//        return withRatio
+//    }
+//}
 }

@@ -130,6 +130,6 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
         self.navigationController?.pushViewController(pageViewController, animated: true)
     }
     
-    
-    
 }
+
+

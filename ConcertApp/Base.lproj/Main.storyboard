@@ -234,18 +234,28 @@
                                     <constraint firstItem="UzQ-M4-Uf1" firstAttribute="width" secondItem="6cZ-D6-r6h" secondAttribute="width" id="wQK-cj-YDN"/>
                                 </constraints>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="n3w-hk-Zfb">
+                                <rect key="frame" x="96" y="589" width="200" height="37"/>
+                                <color key="pageIndicatorTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="currentPageIndicatorTintColor" red="1" green="0.2519459060738084" blue="0.39859773938771048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="n3w-hk-Zfb" secondAttribute="bottom" constant="41" id="5cL-0E-Sbt"/>
                             <constraint firstItem="6cZ-D6-r6h" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" id="A12-NH-Eu2"/>
+                            <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="n3w-hk-Zfb" secondAttribute="trailing" constant="79" id="B39-nQ-nzA"/>
+                            <constraint firstItem="n3w-hk-Zfb" firstAttribute="leading" secondItem="Snm-Sb-kEJ" secondAttribute="leading" constant="96" id="Bzg-jZ-YKb"/>
                             <constraint firstItem="Snm-Sb-kEJ" firstAttribute="trailing" secondItem="6cZ-D6-r6h" secondAttribute="trailing" id="PmQ-sp-zXq"/>
                             <constraint firstItem="6cZ-D6-r6h" firstAttribute="top" secondItem="Snm-Sb-kEJ" secondAttribute="top" id="aFq-kW-Qks"/>
                             <constraint firstItem="Snm-Sb-kEJ" firstAttribute="bottom" secondItem="6cZ-D6-r6h" secondAttribute="bottom" constant="176" id="dg9-vr-mOq"/>
+                            <constraint firstItem="n3w-hk-Zfb" firstAttribute="top" secondItem="6cZ-D6-r6h" secondAttribute="bottom" constant="98" id="hJZ-fV-dJS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Snm-Sb-kEJ"/>
                     </view>
                     <connections>
                         <outlet property="img" destination="UzQ-M4-Uf1" id="IxM-l5-kuJ"/>
+                        <outlet property="pageControl" destination="n3w-hk-Zfb" id="1jg-Y1-oze"/>
                         <outlet property="scrollView" destination="6cZ-D6-r6h" id="E2d-Lr-y8K"/>
                     </connections>
                 </viewController>

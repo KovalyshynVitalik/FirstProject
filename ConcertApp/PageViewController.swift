@@ -73,6 +73,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         addChild(pageVC)
         view.addSubview(pageVC.view)
         view.frame = CGRect(x: 0, y: 200, width: 400, height: 400)
+        
     }
     
     

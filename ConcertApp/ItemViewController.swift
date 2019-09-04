@@ -9,15 +9,10 @@
 import UIKit
 
 class ItemViewController: UIViewController, UIScrollViewDelegate {
-    var eventImageNames: ConcertDetails? {
-        didSet {
-            
-        }
-    }
     
+
     var imageName: String?
     var timer = Timer()
-    var frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     var counter = 0
     var images :  [UIImage] = []
     
@@ -29,15 +24,6 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        guard let item = eventImageNames else { return }
-        for imageName in item.concertImageNames {
-            if let image = UIImage(named: imageName) {
-                images.append(image)
-            }
-            
-        }
-      
         
         scrollView.delegate = self
         
@@ -52,27 +38,21 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         
         
-        pageControl.numberOfPages = images.count
-        for index in 0..<images.count {
-            frame.origin.x = scrollView.frame.size.width * CGFloat(index)
-            frame.size = scrollView.frame.size
-            let imgView = UIImageView(frame: frame)
-            imgView.image = UIImage(named: images)
-            self.scrollView.addSubview(imgView)
-            
-        }
         scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(images.count)), height: scrollView.frame.size.height)
         
         scrollView.delegate = self
         
+        pageControl.numberOfPages = images.count
         
         
     }
+    
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.img
     }
     
+    //Limit of zoom image
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if scrollView.zoomScale > 1 {
             if let image  = img.image {
@@ -93,24 +73,52 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
-        pageControl.currentPage = Int(pageNumber)
-        
-        
+    
+   // Page Control
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let page = scrollView.contentOffset.x/scrollView.frame.width
+
+        pageControl.currentPage = Int(page)
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        timer.invalidate()
-    }
-    
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
+//        pageControl.currentPage = Int(pageNumber)
+//
+//
+//    }
+//
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        timer.invalidate()
+//    }
+//
 //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        timer = Timer.init(timeInterval: 3, target: self, selector: #selector(<#T##@objc method#>), userInfo: nil, repeats: false)
+//        timer = Timer.init(timeInterval: 3, target: self, selector: #selector(changeImage), userInfo: nil, repeats: false)
 //    }
     
     
-    
+//
 //    @objc func changeImage() {
+//
+//        if counter == images.count {
+//            counter = 0
+//        }
+//        if counter < images.count {
+//            let index = IndexPath.init(item: counter, section: 0)
+//            self.eventC
+//            eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+//            pageControl.currentPage = counter
+//            counter += 1
+//
+//        } else {
+//            counter = 1
+//            let index = IndexPath.init(item: counter, section: 0)
+//            self.eventCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+//            pageControl.currentPage = counter
+//            counter = 1
+//
+//        }
+//
 //    }
     
     
