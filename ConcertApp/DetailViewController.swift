@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UPCarouselFlowLayout
 
 class DetailViewController: UIViewController, UITextViewDelegate {
     
@@ -22,6 +23,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var eventCollectionView: UICollectionView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var pageView: UIPageControl!
+    @IBOutlet weak var eventCollectionLayout: UICollectionViewFlowLayout!
     
     
     
@@ -39,21 +41,22 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             if let image = UIImage(named: imageName) {
                 imgArray.append(image)
             }
-            
         }
-        
-        
         
         setUpUI()
         
 
         textSetup()
+        setUpLayout()
         
         pageView.numberOfPages = imgArray.count
         pageView.currentPage = 0
         
         
-        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
+//        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
+//        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { (timer) in
+//            self.changeImage()
+//        })
         
     }
     
@@ -80,6 +83,18 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
     }
     
+    func setUpLayout() {
+        
+        
+        let flowLayout = UPCarouselFlowLayout()
+        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.size.width, height: eventCollectionView.frame.size.height)
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.sideItemScale = 0.8
+        flowLayout.sideItemAlpha = 0.5
+        flowLayout.spacingMode = .fixed(spacing: 42)
+        self.eventCollectionView.collectionViewLayout = flowLayout
+    }
+    
     func textSetup() {
         self.textView.text = self.eventImageNames?.concertInfo
     }
@@ -95,6 +110,17 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
+        guard let images = self.eventImageNames?.concertImageNames else { return }
+        
+        var castedImages = [UIImage]()
+        
+        images.forEach { (item) in
+            if let image = UIImage(named: item) {
+                castedImages.append(image)
+            }
+        }
+        
+        itemViewController.images = castedImages
         
         
         self.navigationController?.pushViewController(itemViewController, animated: true)
@@ -106,6 +132,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 
 
 extension DetailViewController: UICollectionViewDataSource,UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
         
@@ -125,10 +152,12 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let pageViewController = storyBoard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
-        pageViewController.images = self.eventImageNames?.concertImageNames
-        self.navigationController?.pushViewController(pageViewController, animated: true)
+        let fullScreenView = storyBoard.instantiateViewController(withIdentifier: "FullScreenView") as! FullScreenView
+        fullScreenView.images = self.eventImageNames!.concertImageNames
+        self.navigationController?.pushViewController(fullScreenView, animated: true)
     }
+
+    
     
 }
 

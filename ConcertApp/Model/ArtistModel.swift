@@ -12,6 +12,7 @@ struct ArtistModel {
     var artistName: String
     var imageName: String
     var concertDetails: ConcertDetails
+    var imageURLString: String?
 }
 
 

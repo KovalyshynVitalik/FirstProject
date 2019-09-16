@@ -43,6 +43,7 @@ class ItemViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         
         pageControl.numberOfPages = images.count
+        view.bringSubviewToFront(pageControl)
         
         
     }
