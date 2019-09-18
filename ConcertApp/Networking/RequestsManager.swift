@@ -16,23 +16,18 @@ class RequestsManager {
     private init() {}
     
     static let shared = RequestsManager()
+
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
     
-    func getImageURLString(with artistName: String, completion: @escaping(String) -> Void) {
-        
-        guard let url = URL(string:"https://itunes.apple.com/search?media=music&entity=song&term=\(artistName)&limit=1") else { return }
-        Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
-            do {
-                guard let data = response.data else { return }
-                let instance = try JSONDecoder().decode(ItunesModel.self, from: data)
-                
-                guard let unwrappedArtworkURL = instance.results?.first?.artworkUrl100 else { return }
-                
-                completion(unwrappedArtworkURL)
-            } catch {
-                print("ERROR")
-            }
+    func downloadImage(from url: URL,completion: @escaping(Data) -> Void) {
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            completion(data)
+            
         }
-        
     }
     
 }

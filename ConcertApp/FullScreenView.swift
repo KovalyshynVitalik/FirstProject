@@ -17,14 +17,18 @@ class FullScreenView: UIViewController {
     
     //MARK: Properties
     let cellIdentifier = "ResizedCollectionViewCell"
-    var products = [ProductDto]()
+    
+    var artistDescription: JsonDataImage?
+    var collectionViewImages: ResizedCollectionViewCell?
+    
     public var images: [String]?
     
-    
+    public var imageURLs: [URL?] = []
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        populateUIWithModel()
         
         setUpLayout()
         
@@ -36,13 +40,32 @@ class FullScreenView: UIViewController {
         self.collectionView.dataSource = self
         
     }
+    
+    
+    func populateUIWithModel() {
+    
+        if let unwrappedArtistInfo = self.artistDescription {
+            if unwrappedArtistInfo.previewURL.isEmpty {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        
+        
+        
+        //TODO:
+        // 1. unwrap and check if array containts image urls
+        // 2. reload data of collection view
+        
+        // 3. Inside collection view "cell for row at IndextPath" using RequestManager download image and show it inside cell
+    }
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func setUpLayout() {
-        
-        
         let flowLayout = UPCarouselFlowLayout()
         flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.size.width, height: collectionView.frame.size.height)
         flowLayout.scrollDirection = .horizontal
@@ -63,16 +86,19 @@ extension FullScreenView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ResizedCollectionViewCell
         
-        if let items = self.images {
-            cell.img.image = UIImage(named: items[indexPath.row])
+        if let url = self.artistDescription?.previewURL[indexPath.row] {
+            RequestsManager.shared.downloadImage(from: url) { (data) in
+                DispatchQueue.main.async {
+                    cell.img.image = UIImage(data: data)
+                }
+            }
         }
-        
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images?.count ?? 0
+        return self.artistDescription?.previewURL.count ?? 0
         
     }
     

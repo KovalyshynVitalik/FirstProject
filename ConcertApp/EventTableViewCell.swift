@@ -10,6 +10,11 @@ import UIKit
 
 class EventTableViewCell: UITableViewCell {
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.img.image = nil
+        self.lbl.text = nil
+    }
     
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var lbl: UILabel!

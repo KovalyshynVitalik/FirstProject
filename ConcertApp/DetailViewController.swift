@@ -18,6 +18,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
             
         }
     }
+    var artistDescription: JsonDataImage?
     
     @IBOutlet weak var lbl: UILabel!
     @IBOutlet weak var eventCollectionView: UICollectionView!
@@ -35,15 +36,8 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        guard let item = eventImageNames else { return }
-        for imageName in item.concertImageNames {
-            if let image = UIImage(named: imageName) {
-                imgArray.append(image)
-            }
-        }
         
-        setUpUI()
+        populateUIWithModel()
         
 
         textSetup()
@@ -58,6 +52,16 @@ class DetailViewController: UIViewController, UITextViewDelegate {
 //            self.changeImage()
 //        })
         
+    }
+    
+    func populateUIWithModel() {
+        if let unwrappedArtistInfo = self.artistDescription {
+            self.lbl.text = unwrappedArtistInfo.imageTitle
+            
+            if !unwrappedArtistInfo.previewURL.isEmpty {
+                self.eventCollectionView.reloadData()
+            }
+        }
     }
     
     
@@ -103,9 +107,6 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         self.lbl.text = self.eventImageNames?.concertName
     }
     
-    
-    
-    
     @objc func openFullScreenImageViewController(){
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -136,16 +137,19 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
         
-        if let items = self.eventImageNames {
-            cell.imageView.image = UIImage(named:  items.concertImageNames[indexPath.row])
+        if let url = self.artistDescription?.previewURL[indexPath.row] {
+            RequestsManager.shared.downloadImage(from: url) { (data) in
+                DispatchQueue.main.async {
+                    cell.imageView.image = UIImage(data: data)
+                }
+            }
         }
-        
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return eventImageNames?.concertImageNames.count ?? 0
+        return self.artistDescription?.previewURL.count ?? 0
     }
     
     
@@ -153,7 +157,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let fullScreenView = storyBoard.instantiateViewController(withIdentifier: "FullScreenView") as! FullScreenView
-        fullScreenView.images = self.eventImageNames!.concertImageNames
+        fullScreenView.artistDescription = artistDescription!
         self.navigationController?.pushViewController(fullScreenView, animated: true)
     }
 
