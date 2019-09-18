@@ -107,25 +107,25 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         self.lbl.text = self.eventImageNames?.concertName
     }
     
-    @objc func openFullScreenImageViewController(){
-        
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
-        guard let images = self.eventImageNames?.concertImageNames else { return }
-        
-        var castedImages = [UIImage]()
-        
-        images.forEach { (item) in
-            if let image = UIImage(named: item) {
-                castedImages.append(image)
-            }
-        }
-        
-        itemViewController.images = castedImages
-        
-        
-        self.navigationController?.pushViewController(itemViewController, animated: true)
-    }
+//    @objc func openFullScreenImageViewController(){
+//        
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
+//        guard let images = self.eventImageNames?.concertImageNames else { return }
+//        
+//        var castedImages = [UIImage]()
+//        
+//        images.forEach { (item) in
+//            if let image = UIImage(named: item) {
+//                castedImages.append(image)
+//            }
+//        }
+//        
+//        itemViewController.images = castedImages
+//        
+//        
+//        self.navigationController?.pushViewController(itemViewController, animated: true)
+//    }
     
     
 }
@@ -144,6 +144,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
                 }
             }
         }
+    
         return cell
     }
     

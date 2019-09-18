@@ -94,9 +94,7 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
     
     }
     
-    
-    
-    
+    //MARK: SearchBar dismiss keyboard
     @objc func dismissKeyboard() {
         searchBar.resignFirstResponder()
     }

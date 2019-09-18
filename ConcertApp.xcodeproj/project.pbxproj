@@ -22,13 +22,9 @@
 		F07027E5232413A60082F991 /* FullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07027E4232413A60082F991 /* FullScreenView.swift */; };
 		F09A18472307407C0021092E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A18462307407C0021092E /* DetailViewController.swift */; };
 		F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */; };
-		F09A18552313EEF70021092E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A18542313EEF70021092E /* PageViewController.swift */; };
-		F09A185723141B350021092E /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A185623141B350021092E /* ItemViewController.swift */; };
 		F0C8673B2330CE650004E162 /* QueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673A2330CE650004E162 /* QueryService.swift */; };
 		F0C8673D2330CEB80004E162 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673C2330CEB80004E162 /* Track.swift */; };
-		F0D8C500232CFC35003E96E7 /* ItunesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D8C4FF232CFC35003E96E7 /* ItunesModel.swift */; };
-		F0D8C502232CFF65003E96E7 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D8C501232CFF65003E96E7 /* TestViewController.swift */; };
-		F0D8C504232EBCE5003E96E7 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D8C503232EBCE5003E96E7 /* RequestsManager.swift */; };
+		F0C8673F23322DCF0004E162 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673E23322DCF0004E162 /* RequestsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,13 +47,9 @@
 		F07027E4232413A60082F991 /* FullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenView.swift; sourceTree = "<group>"; };
 		F09A18462307407C0021092E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewEventCell.swift; sourceTree = "<group>"; };
-		F09A18542313EEF70021092E /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		F09A185623141B350021092E /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		F0C8673A2330CE650004E162 /* QueryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QueryService.swift; path = "../../../../../Downloads/URLSession Materials/URLSession Starter/HalfTunes/Networking/QueryService.swift"; sourceTree = "<group>"; };
 		F0C8673C2330CEB80004E162 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		F0D8C4FF232CFC35003E96E7 /* ItunesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesModel.swift; sourceTree = "<group>"; };
-		F0D8C501232CFF65003E96E7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		F0D8C503232EBCE5003E96E7 /* RequestsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
+		F0C8673E23322DCF0004E162 /* RequestsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +100,6 @@
 				CE76C2A822F8B30D003AC834 /* EventTableViewCell.swift */,
 				F09A18462307407C0021092E /* DetailViewController.swift */,
 				F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */,
-				F09A18542313EEF70021092E /* PageViewController.swift */,
-				F09A185623141B350021092E /* ItemViewController.swift */,
 				F07027E4232413A60082F991 /* FullScreenView.swift */,
 				F07027992323B41B0082F991 /* ResizedCollectionViewCell.swift */,
 				F070279A2323B41B0082F991 /* ResizedCollectionViewCell.xib */,
@@ -117,7 +107,6 @@
 				CE26A98B22F213DB0082486B /* Assets.xcassets */,
 				CE26A98D22F213DB0082486B /* LaunchScreen.storyboard */,
 				CE26A99022F213DB0082486B /* Info.plist */,
-				F0D8C501232CFF65003E96E7 /* TestViewController.swift */,
 			);
 			path = ConcertApp;
 			sourceTree = "<group>";
@@ -146,8 +135,7 @@
 			children = (
 				F0C8673C2330CEB80004E162 /* Track.swift */,
 				F0C8673A2330CE650004E162 /* QueryService.swift */,
-				F0D8C4FF232CFC35003E96E7 /* ItunesModel.swift */,
-				F0D8C503232EBCE5003E96E7 /* RequestsManager.swift */,
+				F0C8673E23322DCF0004E162 /* RequestsManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -269,22 +257,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE76C2A922F8B30D003AC834 /* EventTableViewCell.swift in Sources */,
-				F0D8C502232CFF65003E96E7 /* TestViewController.swift in Sources */,
 				F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */,
 				CE26A98522F213D90082486B /* AppDelegate.swift in Sources */,
 				F0C8673B2330CE650004E162 /* QueryService.swift in Sources */,
 				F09A18472307407C0021092E /* DetailViewController.swift in Sources */,
 				F0448820231CF9F000A5BDBA /* ArtistModel.swift in Sources */,
+				F0C8673F23322DCF0004E162 /* RequestsManager.swift in Sources */,
 				F07027E5232413A60082F991 /* FullScreenView.swift in Sources */,
 				CE76C2AD22FB4C20003AC834 /* EventCellModel.swift in Sources */,
-				F09A18552313EEF70021092E /* PageViewController.swift in Sources */,
 				F070279B2323B41B0082F991 /* ResizedCollectionViewCell.swift in Sources */,
 				F07027E3232412B80082F991 /* FullScreenModel.swift in Sources */,
 				F0C8673D2330CEB80004E162 /* Track.swift in Sources */,
-				F09A185723141B350021092E /* ItemViewController.swift in Sources */,
-				F0D8C500232CFC35003E96E7 /* ItunesModel.swift in Sources */,
 				CE76C2A722F8B10E003AC834 /* EventListTableViewController.swift in Sources */,
-				F0D8C504232EBCE5003E96E7 /* RequestsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

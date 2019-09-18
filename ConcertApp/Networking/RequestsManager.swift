@@ -16,7 +16,7 @@ class RequestsManager {
     private init() {}
     
     static let shared = RequestsManager()
-
+    
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
@@ -26,8 +26,6 @@ class RequestsManager {
             guard let data = data, error == nil else { return }
             
             completion(data)
-            
         }
     }
-    
 }
