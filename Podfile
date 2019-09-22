@@ -8,6 +8,8 @@ target 'ConcertApp' do
     pod "UPCarouselFlowLayout"
     pod "Alamofire"
     pod "SDWebImage"
+    pod "RevealingSplashView"
+    pod "LBTAComponents"
 
   # Pods for ConcertApp
 

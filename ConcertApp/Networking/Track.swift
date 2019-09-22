@@ -34,10 +34,15 @@ struct JsonDataImage {
     let artistId: Int
     let imageTitle: String
     var previewURL: [URL?]
-    init(artistName: String, artistId: Int, previewURL: [URL?]) {
+    var previewURLSong: URL
+    
+    var downloaded = false
+    
+    init(artistName: String, artistId: Int, previewURL: [URL?], previewURLSong: URL ) {
         self.imageTitle = artistName
         self.artistId = artistId
         self.previewURL = previewURL
+        self.previewURLSong = previewURLSong
 }
 }
 

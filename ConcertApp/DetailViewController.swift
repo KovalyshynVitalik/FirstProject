@@ -8,8 +8,11 @@
 
 import UIKit
 import UPCarouselFlowLayout
+import AVKit
 
-class DetailViewController: UIViewController, UITextViewDelegate {
+
+
+class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDelegate {
     
     
     
@@ -26,17 +29,29 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var pageView: UIPageControl!
     @IBOutlet weak var eventCollectionLayout: UICollectionViewFlowLayout!
     
-    
-    
+
     var imgArray: [UIImage] = []
     
     var timer = Timer()
     var counter = 0
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var searchResults: [JsonDataImage] = []
+    let downloadService = DownloadService()
+    var activeDownloads: [URL: Download] = [ : ]
+    lazy var downloadsSession: URLSession = {
+        let configuration = URLSessionConfiguration.background(withIdentifier:
+            "com.raywenderlich.HalfTunes.bgSession")
+        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        
+        downloadService.downloadsSession = downloadsSession
         populateUIWithModel()
         
 
@@ -47,12 +62,55 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         pageView.currentPage = 0
         
         
+    
+        
+       
+        
+        
 //        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
 //        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { (timer) in
 //            self.changeImage()
 //        })
         
     }
+    
+    
+    @IBAction func showButton(_ sender: Any) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        guard let track = self.artistDescription else {
+            return
+        }
+        
+
+        
+        let url = self.localFilePath(for: track.previewURLSong)
+        
+        
+        let action = UIAlertAction(title: "Download", style: .default) { (action) in
+            self.downloadService.startDownload(track)
+            
+            
+            
+        }
+        let action1 = UIAlertAction(title: "Delete", style: .default) { (action) in
+            self.removeTrack(track: url)
+        
+        }
+        let action2 = UIAlertAction(title: "Play", style: .default) { (action) in
+          
+        self.playDownload(track)
+        
+        }
+        
+        
+        
+        alertController.addAction(action)
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
     
     func populateUIWithModel() {
         if let unwrappedArtistInfo = self.artistDescription {
@@ -87,8 +145,18 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         
     }
     
+    func removeTrack(track: URL) {
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: track)
+        }
+        catch let error as NSError {
+            print("errror\(error)")
+        }
+    }
+    
+    
     func setUpLayout() {
-        
         
         let flowLayout = UPCarouselFlowLayout()
         flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.size.width, height: eventCollectionView.frame.size.height)
@@ -107,36 +175,27 @@ class DetailViewController: UIViewController, UITextViewDelegate {
         self.lbl.text = self.eventImageNames?.concertName
     }
     
-//    @objc func openFullScreenImageViewController(){
-//        
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let itemViewController = storyBoard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
-//        guard let images = self.eventImageNames?.concertImageNames else { return }
-//        
-//        var castedImages = [UIImage]()
-//        
-//        images.forEach { (item) in
-//            if let image = UIImage(named: item) {
-//                castedImages.append(image)
-//            }
-//        }
-//        
-//        itemViewController.images = castedImages
-//        
-//        
-//        self.navigationController?.pushViewController(itemViewController, animated: true)
-//    }
+    func localFilePath(for url: URL) -> URL {
+        return documentsPath.appendingPathComponent(url.lastPathComponent)
+    }
     
+    func playDownload(_ track: JsonDataImage) {
+        let playerViewController = AVPlayerViewController()
+        present(playerViewController, animated: true, completion: nil)
+        
+        let url = localFilePath(for: track.previewURLSong)
+        let player = AVPlayer(url: url)
+        playerViewController.player = player
+        player.play()
+    }
     
 }
-
-
 
 extension DetailViewController: UICollectionViewDataSource,UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
-        
+//        let track = searchResults[indexPath.row]
         if let url = self.artistDescription?.previewURL[indexPath.row] {
             RequestsManager.shared.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
@@ -165,5 +224,62 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
     
     
 }
+
+extension DetailViewController: URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL) {
+        
+        guard let sourceURL = downloadTask.originalRequest?.url else {
+            return
+        }
+        
+        let download = downloadService.activeDownloads[sourceURL]
+        downloadService.activeDownloads[sourceURL] = nil
+        
+        let destinationURL = localFilePath(for: sourceURL)
+        print(destinationURL)
+        
+        let fileManager = FileManager.default
+        try? fileManager.removeItem(at: destinationURL)
+        
+        do {
+            try fileManager.copyItem(at: location, to: destinationURL)
+            download?.track.downloaded = true
+        } catch let error {
+            print("Could not copy file to disk: \(error.localizedDescription)")
+        }
+        
+        // 4
+//        if let index = download?.track.artistId {
+//            DispatchQueue.main.async { [weak self] in
+//                self?.pageView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+//            }
+//        }
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64, totalBytesWritten: Int64,
+                    totalBytesExpectedToWrite: Int64) {
+        guard
+            let url = downloadTask.originalRequest?.url,
+            let download = downloadService.activeDownloads[url]  else {
+                return
+        }
+        
+        download.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+        
+      //  let totalSize = ByteCountFormatter.string(fromByteCount: totalBytesExpectedToWrite, countStyle: .file)
+        
+        // 4
+//        DispatchQueue.main.async {
+//            if let trackCell = self.tableView.cellForRow(at: IndexPath(row: download.track.index,
+//                                                                       section: 0)) as? JsonDataImage {
+//                trackCell.updateDisplay(progress: download.progress, totalSize: totalSize)
+//            }
+//        }
+    }
+}
+
+
 
 

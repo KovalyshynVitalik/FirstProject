@@ -7,18 +7,46 @@
 //
 
 import UIKit
+import RevealingSplashView
+import LBTAComponents
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    let revealingSplashView = RevealingSplashView(iconImage: UIImage(imageLiteralResourceName: "RevealingSplashViewIcon"), iconInitialSize: CGSize(width: 123, height: 123), backgroundColor: UIColor(r: 78, g: 172, b: 248))
 
-    private func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RegistrationController")
+        let navigationController = UINavigationController.init(rootViewController: vc)
+
+        
+        
+        
+        window = UIWindow()
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        
+
+
+
+        revealingSplashView.animationType = .heartBeat
+        window?.addSubview(revealingSplashView)
+        revealingSplashView.startAnimation()
+        
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
+            self.revealingSplashView.heartAttack = true
+        }
+        
         return true
     }
 
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

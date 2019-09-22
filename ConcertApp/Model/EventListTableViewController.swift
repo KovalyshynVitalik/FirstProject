@@ -27,7 +27,6 @@ class EventListTableViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
    
-   
     
     let queryService = QueryService()
     var searchResults: [JsonDataImage] = []
@@ -41,9 +40,19 @@ class EventListTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
- 
+    self.navigationItem.title = "Artist"
+//     setupNavBar()
         
     }
+    
+//    func setupNavBar() {
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        let searchController = UISearchController(searchResultsController: nil)
+//        navigationItem.searchController = searchController
+//
+//    }
+    
+    
     
 
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
@@ -58,6 +67,7 @@ class EventListTableViewController: UIViewController {
             
         }
     }
+   
 }
 
 
@@ -84,6 +94,7 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
             
             self.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
+                
                     cell.img.image = UIImage(data: data)
                 }
             }
@@ -142,4 +153,7 @@ extension EventListTableViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         view.removeGestureRecognizer(tapRecognizer)
     }
+    
 }
+
+

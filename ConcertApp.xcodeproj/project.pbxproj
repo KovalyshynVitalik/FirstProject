@@ -25,6 +25,9 @@
 		F0C8673B2330CE650004E162 /* QueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673A2330CE650004E162 /* QueryService.swift */; };
 		F0C8673D2330CEB80004E162 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673C2330CEB80004E162 /* Track.swift */; };
 		F0C8673F23322DCF0004E162 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673E23322DCF0004E162 /* RequestsManager.swift */; };
+		F0C867B7233268C00004E162 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C867B6233268C00004E162 /* LaunchScreen.swift */; };
+		F0C867B92333A85E0004E162 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C867B82333A85E0004E162 /* DownloadService.swift */; };
+		F0C867BB233400E90004E162 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C867BA233400E90004E162 /* Download.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,9 @@
 		F0C8673A2330CE650004E162 /* QueryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QueryService.swift; path = "../../../../../Downloads/URLSession Materials/URLSession Starter/HalfTunes/Networking/QueryService.swift"; sourceTree = "<group>"; };
 		F0C8673C2330CEB80004E162 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		F0C8673E23322DCF0004E162 /* RequestsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
+		F0C867B6233268C00004E162 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
+		F0C867B82333A85E0004E162 /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
+		F0C867BA233400E90004E162 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 				CE26A98822F213D90082486B /* Main.storyboard */,
 				CE26A98B22F213DB0082486B /* Assets.xcassets */,
 				CE26A98D22F213DB0082486B /* LaunchScreen.storyboard */,
+				F0C867B6233268C00004E162 /* LaunchScreen.swift */,
 				CE26A99022F213DB0082486B /* Info.plist */,
 			);
 			path = ConcertApp;
@@ -117,6 +124,7 @@
 				CE76C2AC22FB4C20003AC834 /* EventCellModel.swift */,
 				F044881F231CF9F000A5BDBA /* ArtistModel.swift */,
 				F07027E2232412B80082F991 /* FullScreenModel.swift */,
+				F0C867BA233400E90004E162 /* Download.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,6 +144,7 @@
 				F0C8673C2330CEB80004E162 /* Track.swift */,
 				F0C8673A2330CE650004E162 /* QueryService.swift */,
 				F0C8673E23322DCF0004E162 /* RequestsManager.swift */,
+				F0C867B82333A85E0004E162 /* DownloadService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -256,10 +265,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0C867B7233268C00004E162 /* LaunchScreen.swift in Sources */,
+				F0C867BB233400E90004E162 /* Download.swift in Sources */,
 				CE76C2A922F8B30D003AC834 /* EventTableViewCell.swift in Sources */,
 				F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */,
 				CE26A98522F213D90082486B /* AppDelegate.swift in Sources */,
 				F0C8673B2330CE650004E162 /* QueryService.swift in Sources */,
+				F0C867B92333A85E0004E162 /* DownloadService.swift in Sources */,
 				F09A18472307407C0021092E /* DetailViewController.swift in Sources */,
 				F0448820231CF9F000A5BDBA /* ArtistModel.swift in Sources */,
 				F0C8673F23322DCF0004E162 /* RequestsManager.swift in Sources */,

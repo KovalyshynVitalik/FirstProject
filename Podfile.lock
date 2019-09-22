@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.9.0)
+  - LBTAComponents (1.1)
+  - RevealingSplashView (0.6.0)
   - SDWebImage (5.1.1):
     - SDWebImage/Core (= 5.1.1)
   - SDWebImage/Core (5.1.1)
@@ -7,20 +9,26 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - LBTAComponents
+  - RevealingSplashView
   - SDWebImage
   - UPCarouselFlowLayout
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - LBTAComponents
+    - RevealingSplashView
     - SDWebImage
     - UPCarouselFlowLayout
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  LBTAComponents: 2e7719683ddcf1cdf7280700438c0c6a5f7da550
+  RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 95ddf214005a4446c6d766aeb8ecc80dfd4ad790
+PODFILE CHECKSUM: 0d2b8125195a8091cd80ec4ff0aaccb49fff11a3
 
 COCOAPODS: 1.7.5
