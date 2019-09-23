@@ -6,7 +6,6 @@ class DownloadService {
 
   var activeDownloads: [URL: Download] = [ : ]
   
-  
   var downloadsSession: URLSession!
 
   func startDownload(_ track: JsonDataImage) {

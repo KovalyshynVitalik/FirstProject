@@ -28,8 +28,11 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var pageView: UIPageControl!
     @IBOutlet weak var eventCollectionLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressLabel: UILabel!
     
-
+    
+    
     var imgArray: [UIImage] = []
     
     var timer = Timer()
@@ -38,6 +41,8 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     var searchResults: [JsonDataImage] = []
     let downloadService = DownloadService()
     var activeDownloads: [URL: Download] = [ : ]
+    var isDownloadPressed = false
+    let progress = Progress(totalUnitCount: 10)
     lazy var downloadsSession: URLSession = {
         let configuration = URLSessionConfiguration.background(withIdentifier:
             "com.raywenderlich.HalfTunes.bgSession")
@@ -45,32 +50,18 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     }()
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        
-        
         downloadService.downloadsSession = downloadsSession
         populateUIWithModel()
-        
-
         textSetup()
         setUpLayout()
-        
         pageView.numberOfPages = imgArray.count
         pageView.currentPage = 0
-        
-        
-    
-        
-       
-        
-        
-//        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
-//        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { (timer) in
-//            self.changeImage()
-//        })
         
     }
     
@@ -81,33 +72,63 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
             return
         }
         
-
-        
         let url = self.localFilePath(for: track.previewURLSong)
-        
         
         let action = UIAlertAction(title: "Download", style: .default) { (action) in
             self.downloadService.startDownload(track)
-            
-            
-            
+            self.isDownloadPressed = true
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                guard self.progress.isFinished == false else {
+                    timer.invalidate()
+                    print("finished")
+                    return
+                }
+            })
+            self.progress.completedUnitCount += 1
+            let progressFloat = Float(self.progress.fractionCompleted)
+            self.progressView.setProgress(progressFloat, animated: true)
         }
+        
+        if !self.isDownloadPressed {
+            alertController.addAction(action)
+        }
+        
         let action1 = UIAlertAction(title: "Delete", style: .default) { (action) in
             self.removeTrack(track: url)
-        
+            self.isDownloadPressed = false
         }
+        
         let action2 = UIAlertAction(title: "Play", style: .default) { (action) in
-          
-        self.playDownload(track)
-        
+            
+            self.playDownload(track)
+            
         }
-        
-        
-        
-        alertController.addAction(action)
+//        progressView.isHidden = !isDownloadPressed
         alertController.addAction(action1)
         alertController.addAction(action2)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        }))
+        
         self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    
+    func updateDisplay(progress: Float, totalSize : String) {
+        progressView.progress = progress
+        progressLabel.text = String(format: "%.1f%% of %@", progress * 100, totalSize)
+    }
+    
+    
+    
+    let items = [""]
+    
+    @IBAction func shareButton(_ sender: Any) {
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true,completion: nil)
+        
+        
         
     }
     
@@ -168,12 +189,10 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     }
     
     func textSetup() {
-        self.textView.text = self.eventImageNames?.concertInfo
+        self.textView.text = self.artistDescription?.trackName
+        self.textView.text = self.artistDescription?.collectionName
     }
     
-    func setUpUI() {
-        self.lbl.text = self.eventImageNames?.concertName
-    }
     
     func localFilePath(for url: URL) -> URL {
         return documentsPath.appendingPathComponent(url.lastPathComponent)
@@ -195,7 +214,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
-//        let track = searchResults[indexPath.row]
+        //        let track = searchResults[indexPath.row]
         if let url = self.artistDescription?.previewURL[indexPath.row] {
             RequestsManager.shared.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
@@ -203,7 +222,6 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
                 }
             }
         }
-    
         return cell
     }
     
@@ -220,7 +238,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
         fullScreenView.artistDescription = artistDescription!
         self.navigationController?.pushViewController(fullScreenView, animated: true)
     }
-
+    
     
     
 }
@@ -248,14 +266,8 @@ extension DetailViewController: URLSessionDownloadDelegate {
         } catch let error {
             print("Could not copy file to disk: \(error.localizedDescription)")
         }
-        
-        // 4
-//        if let index = download?.track.artistId {
-//            DispatchQueue.main.async { [weak self] in
-//                self?.pageView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-//            }
-//        }
     }
+    
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
                     didWriteData bytesWritten: Int64, totalBytesWritten: Int64,
@@ -268,18 +280,12 @@ extension DetailViewController: URLSessionDownloadDelegate {
         
         download.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
         
-      //  let totalSize = ByteCountFormatter.string(fromByteCount: totalBytesExpectedToWrite, countStyle: .file)
+        let totalSize = ByteCountFormatter.string(fromByteCount: totalBytesExpectedToWrite, countStyle: .file)
         
-        // 4
-//        DispatchQueue.main.async {
-//            if let trackCell = self.tableView.cellForRow(at: IndexPath(row: download.track.index,
-//                                                                       section: 0)) as? JsonDataImage {
-//                trackCell.updateDisplay(progress: download.progress, totalSize: totalSize)
-//            }
-//        }
+        DispatchQueue.main.async {
+            self.updateDisplay(progress: download.progress, totalSize: totalSize)
+        }
     }
 }
-
-
 
 

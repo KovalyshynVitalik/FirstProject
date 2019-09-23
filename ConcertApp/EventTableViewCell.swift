@@ -9,7 +9,7 @@
 import UIKit
 
 class EventTableViewCell: UITableViewCell {
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.img.image = nil

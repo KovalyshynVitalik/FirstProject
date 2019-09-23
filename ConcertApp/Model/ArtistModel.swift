@@ -16,8 +16,6 @@ struct ArtistModel {
 }
 
 
-
-
 struct ConcertDetails {
     var concertName:       String
     var concertInfo:       String

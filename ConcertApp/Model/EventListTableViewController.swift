@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Alamofire
-import SDWebImage
+//import Alamofire
+//import SDWebImage
 
 
 struct Event {
@@ -21,12 +21,12 @@ struct Event {
 class EventListTableViewController: UIViewController {
     
     var eventList: [ArtistModel]?
-        
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-   
+    
     
     let queryService = QueryService()
     var searchResults: [JsonDataImage] = []
@@ -35,26 +35,26 @@ class EventListTableViewController: UIViewController {
         return recognizer
     }()
     
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    self.navigationItem.title = "Artist"
-//     setupNavBar()
+        self.navigationItem.title = "Artist"
+        //     setupNavBar()
         
     }
     
-//    func setupNavBar() {
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        let searchController = UISearchController(searchResultsController: nil)
-//        navigationItem.searchController = searchController
-//
-//    }
+    //    func setupNavBar() {
+    //        navigationController?.navigationBar.prefersLargeTitles = true
+    //        let searchController = UISearchController(searchResultsController: nil)
+    //        navigationItem.searchController = searchController
+    //
+    //    }
     
     
     
-
+    
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
@@ -67,7 +67,7 @@ class EventListTableViewController: UIViewController {
             
         }
     }
-   
+    
 }
 
 
@@ -94,15 +94,15 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
             
             self.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
-                
+                    
                     cell.img.image = UIImage(data: data)
                 }
             }
-
-        
+            
+            
         }
         return cell
-    
+        
     }
     
     //MARK: SearchBar dismiss keyboard
@@ -145,7 +145,8 @@ extension EventListTableViewController: UISearchBarDelegate {
                 print("Search error: " + errorMessage)
             }
         }
-}
+    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         view.addGestureRecognizer(tapRecognizer)
     }

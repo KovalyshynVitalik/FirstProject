@@ -13,7 +13,6 @@ class CollectionViewEventCell: UICollectionViewCell {
     var imageName: String?
     
     
-    
     @IBOutlet weak var imageView: UIImageView!
     
     

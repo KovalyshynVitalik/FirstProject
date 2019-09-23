@@ -49,15 +49,6 @@ class FullScreenView: UIViewController {
                 self.collectionView.reloadData()
             }
         }
-        
-        
-        
-        
-        //TODO:
-        // 1. unwrap and check if array containts image urls
-        // 2. reload data of collection view
-        
-        // 3. Inside collection view "cell for row at IndextPath" using RequestManager download image and show it inside cell
     }
     
     
@@ -101,10 +92,6 @@ extension FullScreenView: UICollectionViewDataSource, UICollectionViewDelegate {
         return self.artistDescription?.previewURL.count ?? 0
         
     }
-    
-    
-    
-    
 }
 
 
