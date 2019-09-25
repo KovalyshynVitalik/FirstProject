@@ -17,7 +17,7 @@ struct ArtistModel {
 
 
 struct ConcertDetails {
-    var concertName:       String
-    var concertInfo:       String
+    var concertName: String
+    var concertInfo: String
     var concertImageNames: [String]
 }

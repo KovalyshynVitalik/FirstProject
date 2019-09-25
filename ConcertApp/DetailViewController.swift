@@ -12,6 +12,7 @@ import AVKit
 
 
 
+
 class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDelegate {
     
     
@@ -77,13 +78,13 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         let action = UIAlertAction(title: "Download", style: .default) { (action) in
             self.downloadService.startDownload(track)
             self.isDownloadPressed = true
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                guard self.progress.isFinished == false else {
-                    timer.invalidate()
-                    print("finished")
-                    return
-                }
-            })
+//            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+//                guard self.progress.isFinished == false else {
+//                    timer.invalidate()
+//                    print("finished")
+//                    return
+//                }
+//            })
             self.progress.completedUnitCount += 1
             let progressFloat = Float(self.progress.fractionCompleted)
             self.progressView.setProgress(progressFloat, animated: true)
@@ -96,6 +97,8 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         let action1 = UIAlertAction(title: "Delete", style: .default) { (action) in
             self.removeTrack(track: url)
             self.isDownloadPressed = false
+            self.progressView.progress = 0
+            self.progressLabel.text = "Deleted"
         }
         
         let action2 = UIAlertAction(title: "Play", style: .default) { (action) in
@@ -127,9 +130,6 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         self.present(activityVC, animated: true,completion: nil)
-        
-        
-        
     }
     
     
@@ -207,7 +207,6 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         playerViewController.player = player
         player.play()
     }
-    
 }
 
 extension DetailViewController: UICollectionViewDataSource,UICollectionViewDelegate {

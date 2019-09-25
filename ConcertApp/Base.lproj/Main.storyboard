@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="169" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lqY-Rx-B6w">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="559" id="wGA-rG-bR7"/>
+                                    <constraint firstAttribute="height" constant="603" id="wGA-rG-bR7"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="169" id="5l8-mh-GfY" customClass="EventTableViewCell" customModule="ConcertApp" customModuleProvider="target">
@@ -68,40 +68,18 @@
                                     <outlet property="delegate" destination="k75-c7-pBv" id="Ynp-Zu-a68"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Artist name" translatesAutoresizingMaskIntoConstraints="NO" id="6UL-QG-D4E">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="eCj-3Q-dgD"/>
-                                    <constraint firstAttribute="height" constant="44" id="gNn-xV-vR7"/>
-                                </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                                <connections>
-                                    <outlet property="delegate" destination="k75-c7-pBv" id="e66-YY-hey"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6UL-QG-D4E" firstAttribute="trailing" secondItem="0KH-66-z0G" secondAttribute="trailing" id="5T0-iB-hxw"/>
-                            <constraint firstItem="lqY-Rx-B6w" firstAttribute="top" secondItem="6UL-QG-D4E" secondAttribute="bottom" id="8Op-ao-V96"/>
                             <constraint firstItem="lqY-Rx-B6w" firstAttribute="bottom" secondItem="0KH-66-z0G" secondAttribute="bottom" id="9e7-Vv-UTk"/>
-                            <constraint firstItem="6UL-QG-D4E" firstAttribute="leading" secondItem="0KH-66-z0G" secondAttribute="leading" id="I0c-WK-0dl"/>
                             <constraint firstItem="lqY-Rx-B6w" firstAttribute="trailing" secondItem="0KH-66-z0G" secondAttribute="trailing" id="NhA-Lx-GIz"/>
-                            <constraint firstItem="lqY-Rx-B6w" firstAttribute="top" secondItem="6UL-QG-D4E" secondAttribute="bottom" id="Zdd-Fb-2Qw"/>
                             <constraint firstItem="lqY-Rx-B6w" firstAttribute="leading" secondItem="0KH-66-z0G" secondAttribute="leading" id="aMO-SL-6cc"/>
-                            <constraint firstItem="lqY-Rx-B6w" firstAttribute="trailing" secondItem="6UL-QG-D4E" secondAttribute="trailing" id="aWg-rs-7wJ"/>
-                            <constraint firstItem="lqY-Rx-B6w" firstAttribute="leading" secondItem="6UL-QG-D4E" secondAttribute="leading" id="mKl-hb-DNc"/>
-                            <constraint firstItem="6UL-QG-D4E" firstAttribute="top" secondItem="0KH-66-z0G" secondAttribute="top" id="ssj-Sp-bbF"/>
+                            <constraint firstItem="lqY-Rx-B6w" firstAttribute="top" secondItem="0KH-66-z0G" secondAttribute="top" id="dpu-Sz-Vwa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0KH-66-z0G"/>
                     </view>
                     <navigationItem key="navigationItem" id="Y9W-5o-aUi"/>
                     <connections>
-                        <outlet property="searchBar" destination="6UL-QG-D4E" id="2l2-Ch-KYS"/>
                         <outlet property="tableView" destination="lqY-Rx-B6w" id="YDL-yu-ANk"/>
                         <segue destination="b5e-5m-b3T" kind="show" identifier="eventDetail" id="4Xe-2e-5MD"/>
                     </connections>

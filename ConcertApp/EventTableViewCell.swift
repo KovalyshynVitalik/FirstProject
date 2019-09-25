@@ -9,11 +9,12 @@
 import UIKit
 
 class EventTableViewCell: UITableViewCell {
-    
+    var imageViewTapAction: (()-> Void)?
     override func prepareForReuse() {
         super.prepareForReuse()
         self.img.image = nil
         self.lbl.text = nil
+        
     }
     
     @IBOutlet weak var img: UIImageView!
