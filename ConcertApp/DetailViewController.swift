@@ -215,7 +215,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
         //        let track = searchResults[indexPath.row]
         if let url = self.artistDescription?.previewURL[indexPath.row] {
-            RequestsManager.shared.downloadImage(from: url) { (data) in
+            RequestsManager.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
                     cell.imageView.image = UIImage(data: data)
                 }
