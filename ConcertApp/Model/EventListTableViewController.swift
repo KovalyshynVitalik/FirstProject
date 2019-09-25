@@ -121,7 +121,7 @@ class EventListTableViewController: UIViewController  {
         return (isReachable && !needsConnection)
     }
     
-    //Show alert that no internet conection
+    
     func showAlert() {
         if !isInternetAvailable() {
             let alert = UIAlertController(title: "Warning", message: "The Internet is not available", preferredStyle: .alert)
