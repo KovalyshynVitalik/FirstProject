@@ -15,9 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    let revealingSplashView = RevealingSplashView(iconImage: UIImage(imageLiteralResourceName: "RevealingSplashViewIcon"), iconInitialSize: CGSize(width: 123, height: 123), backgroundColor: UIColor(r: 78, g: 172, b: 248))
-
-    
+//    let revealingSplashView = RevealingSplashView(iconImage: UIImage(imageLiteralResourceName: "equalizer"), iconInitialSize: CGSize(width: 123, height: 123), backgroundColor: UIColor(r: 78, g: 172, b: 248))
+    let revealingSplashView = RevealingSplashView(iconImage: UIImage(imageLiteralResourceName: "sound"), iconInitialSize: CGSize(width: 123, height: 123), backgroundImage: UIImage(imageLiteralResourceName: "backgroundblack"))
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -25,19 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let vc = storyboard.instantiateViewController(withIdentifier: "RegistrationController")
         let navigationController = UINavigationController.init(rootViewController: vc)
 
-        
-        
-        
         window = UIWindow()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-
-
-
+        
         revealingSplashView.animationType = .heartBeat
         window?.addSubview(revealingSplashView)
         revealingSplashView.startAnimation()
+        
         
         Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (timer) in
             self.revealingSplashView.heartAttack = true

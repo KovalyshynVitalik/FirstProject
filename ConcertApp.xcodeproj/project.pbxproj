@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CE26A98522F213D90082486B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A98422F213D90082486B /* AppDelegate.swift */; };
 		CE26A98A22F213D90082486B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE26A98822F213D90082486B /* Main.storyboard */; };
-		CE26A98C22F213DB0082486B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE26A98B22F213DB0082486B /* Assets.xcassets */; };
 		CE26A98F22F213DB0082486B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE26A98D22F213DB0082486B /* LaunchScreen.storyboard */; };
 		CE76C2A722F8B10E003AC834 /* EventListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE76C2A622F8B10E003AC834 /* EventListTableViewController.swift */; };
 		CE76C2A922F8B30D003AC834 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE76C2A822F8B30D003AC834 /* EventTableViewCell.swift */; };
@@ -20,11 +19,13 @@
 		F07027E5232413A60082F991 /* FullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07027E4232413A60082F991 /* FullScreenView.swift */; };
 		F09A18472307407C0021092E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A18462307407C0021092E /* DetailViewController.swift */; };
 		F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */; };
+		F0A3A3EB233CED920063CB1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0A3A3EA233CED920063CB1B /* Assets.xcassets */; };
 		F0C41D6A233BCA150064BD31 /* QueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C41D69233BCA150064BD31 /* QueryService.swift */; };
 		F0C8673D2330CEB80004E162 /* JsonDataImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673C2330CEB80004E162 /* JsonDataImage.swift */; };
 		F0C8673F23322DCF0004E162 /* RequestsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C8673E23322DCF0004E162 /* RequestsManager.swift */; };
 		F0C867B92333A85E0004E162 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C867B82333A85E0004E162 /* DownloadService.swift */; };
 		F0C867BB233400E90004E162 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C867BA233400E90004E162 /* Download.swift */; };
+		F0E60847233CE5FA00E143DF /* GradientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E60846233CE5FA00E143DF /* GradientBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +33,6 @@
 		CE26A98122F213D90082486B /* ConcertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE26A98422F213D90082486B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE26A98922F213D90082486B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CE26A98B22F213DB0082486B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE26A98E22F213DB0082486B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE26A99022F213DB0082486B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE76C2A622F8B10E003AC834 /* EventListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventListTableViewController.swift; path = Model/EventListTableViewController.swift; sourceTree = "<group>"; };
@@ -45,11 +45,13 @@
 		F07027E4232413A60082F991 /* FullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenView.swift; sourceTree = "<group>"; };
 		F09A18462307407C0021092E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F09A184A2309C8CE0021092E /* CollectionViewEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewEventCell.swift; sourceTree = "<group>"; };
+		F0A3A3EA233CED920063CB1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0C41D69233BCA150064BD31 /* QueryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryService.swift; sourceTree = "<group>"; };
 		F0C8673C2330CEB80004E162 /* JsonDataImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonDataImage.swift; sourceTree = "<group>"; };
 		F0C8673E23322DCF0004E162 /* RequestsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsManager.swift; sourceTree = "<group>"; };
 		F0C867B82333A85E0004E162 /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		F0C867BA233400E90004E162 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		F0E60846233CE5FA00E143DF /* GradientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +106,10 @@
 				F07027992323B41B0082F991 /* ResizedCollectionViewCell.swift */,
 				F070279A2323B41B0082F991 /* ResizedCollectionViewCell.xib */,
 				CE26A98822F213D90082486B /* Main.storyboard */,
-				CE26A98B22F213DB0082486B /* Assets.xcassets */,
+				F0A3A3EA233CED920063CB1B /* Assets.xcassets */,
 				CE26A98D22F213DB0082486B /* LaunchScreen.storyboard */,
 				CE26A99022F213DB0082486B /* Info.plist */,
+				F0E60846233CE5FA00E143DF /* GradientBackground.swift */,
 			);
 			path = ConcertApp;
 			sourceTree = "<group>";
@@ -201,8 +204,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE26A98F22F213DB0082486B /* LaunchScreen.storyboard in Resources */,
-				CE26A98C22F213DB0082486B /* Assets.xcassets in Resources */,
 				CE26A98A22F213D90082486B /* Main.storyboard in Resources */,
+				F0A3A3EB233CED920063CB1B /* Assets.xcassets in Resources */,
 				F070279C2323B41B0082F991 /* ResizedCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +264,7 @@
 				F09A184B2309C8CE0021092E /* CollectionViewEventCell.swift in Sources */,
 				CE26A98522F213D90082486B /* AppDelegate.swift in Sources */,
 				F0C41D6A233BCA150064BD31 /* QueryService.swift in Sources */,
+				F0E60847233CE5FA00E143DF /* GradientBackground.swift in Sources */,
 				F0C867B92333A85E0004E162 /* DownloadService.swift in Sources */,
 				F09A18472307407C0021092E /* DetailViewController.swift in Sources */,
 				F0448820231CF9F000A5BDBA /* ArtistModel.swift in Sources */,

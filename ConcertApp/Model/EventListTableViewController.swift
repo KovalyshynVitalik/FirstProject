@@ -19,6 +19,7 @@ struct Event {
     
 }
 
+
 class EventListTableViewController: UIViewController  {
     
     var eventList: [ArtistModel]?
@@ -28,19 +29,16 @@ class EventListTableViewController: UIViewController  {
 
     
     let queryService = QueryService()
-    var searchResults: [JsonDataImage] = []
-    var someArray: [String] = []
-    var doubleArray: [[String]] = []
+    var searchResults: [String:[JsonDataImage]] = [:]
     let searchController = UISearchController(searchResultsController: nil)
     lazy var tapRecognizer: UITapGestureRecognizer = {
         var recognizer = UITapGestureRecognizer(target:self, action: #selector(dismissKeyboard))
         return recognizer
     }()
-    var uniqueArtistId: [String] = []
-    var artistDictionary = [String : [String]]()
+    
     var selectedCell = 0
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,56 +46,14 @@ class EventListTableViewController: UIViewController  {
         searchController.searchResultsUpdater = self as UISearchResultsUpdating
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Artist Name"
+
+        
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        
-        fillDictionary(data: searchResults)
-        
-        
-        
-        if isInternetAvailable() {
-        }
-        else {
+        if !isInternetAvailable() {
             self.showAlert()
         }
-    }
-    
-    
-    
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    func downloadImage(from url: URL,completion: @escaping(Data) -> Void) {
-        getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            completion(data)
-            
-        }
-    }
-    
-    func fillDictionary(data: [JsonDataImage]) {
-        artistDictionary.removeAll()
-        uniqueArtistId.removeAll()
-        for itemIndex in 0 ..< data.count {
-            if uniqueArtistId.contains(data[itemIndex].imageTitle) {
-            } else {
-                uniqueArtistId.append(data[itemIndex].imageTitle)
-            }
-            
-            for index in 0 ..< uniqueArtistId.count {
-                for songIndex in 0 ..< data.count {
-                    if uniqueArtistId[index] == data[songIndex].imageTitle {
-                        someArray.append(data[songIndex].trackName)
-                    }
-                }
-                artistDictionary.updateValue(someArray , forKey: uniqueArtistId[index])
-                someArray.removeAll()
-            }
-        }
-        
-        self.tableView.reloadData()
+       
     }
     
     //Check internet conection
@@ -136,13 +92,22 @@ class EventListTableViewController: UIViewController  {
 
 
 extension EventListTableViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return searchResults.keys.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let keyForSection = Array(searchResults.keys)[section]
+        return searchResults[keyForSection]?.first?.imageTitle
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection sectio: Int) -> Int {
-        return self.searchResults.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let keyForSection = Array(searchResults.keys)[section]
+        return searchResults[keyForSection]?.count ?? 0
     }
     
     
@@ -151,13 +116,14 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as?
             EventTableViewCell else { return UITableViewCell() }
-        
-        cell.lbl.text = searchResults[indexPath.row].trackName
+        let keyForSection = Array(searchResults.keys)[indexPath.section]
+        let items = searchResults[keyForSection]
+        cell.lbl.text = items?[indexPath.row].trackName
 
         
-        if let unwrappedURL = searchResults[indexPath.row].previewURL.first,let url = unwrappedURL {
+        if let unwrappedURL = items?[indexPath.row].previewURL.first,let url = unwrappedURL {
             
-            self.downloadImage(from: url) { (data) in
+            RequestsManager.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
                     
                     cell.img.image = UIImage(data: data)
@@ -175,32 +141,16 @@ extension EventListTableViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
-        
-        vc?.artistDescription = searchResults[indexPath.row]
+        let keyForSection = Array(searchResults.keys)[indexPath.section]
+        if let items = searchResults[keyForSection] {
+        vc?.artistDescription = items[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-    
+    }
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-    
-//    func fillItems(data: [JsonDataImage]) {
-//        var tempImage: [URL] = []
-//        tableView.removeAll()
-//        fillDictionary(data: data)
-//
-//        for itemIndex in 0 ..< data.count {
-//            for index in 0 ..< data[itemIndex].previewURL.count {
-//                tempImage.append(data[itemIndex].previewURL[index]!)
-//            }
-//
-//            eventList.append(JsonDataImage(description: data[itemIndex].trackId, eventCellModelContents: JsonDataImage.init(title: data[itemIndex].imageTitle, songName: data[itemIndex].songName, colectionId: data[itemIndex].collectionId, imageNames: tempImage)))
-//            tempImage.removeAll()
-//        }
-//        self.tableView.reloadData()
-//    }
-    
     
 }
 
@@ -213,9 +163,11 @@ extension EventListTableViewController: UISearchResultsUpdating {
             return
         }
         
+      
+
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        queryService.getSearchResults(searchTerm: searchText) { [weak self] results, errorMessage in
+        let searchWord = searchText.trimmingCharacters(in: CharacterSet.whitespaces)
+        queryService.getSearchResults(searchTerm: searchWord) { [weak self] results, errorMessage in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             if let results = results {
@@ -223,12 +175,6 @@ extension EventListTableViewController: UISearchResultsUpdating {
                 self?.tableView.reloadData()
                 self?.tableView.setContentOffset(CGPoint.zero, animated: false)
             }
-            
-//            if self?.searchResults.isEmpty ?? false {
-//                let searchAlertController = UIAlertController(title: "Search", message: "No matching!", preferredStyle: .alert)
-//                searchAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                self?.present(searchAlertController, animated: true)
-//            }
             
             if !errorMessage.isEmpty {
                 print("Search error: " + errorMessage)
@@ -244,4 +190,3 @@ extension EventListTableViewController: UISearchResultsUpdating {
     }
     
 }
-

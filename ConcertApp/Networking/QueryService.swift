@@ -1,17 +1,17 @@
 
 import Foundation
 
+typealias JSONDictionary = [String: Any]
+typealias QueryResult = ([String: [JsonDataImage]]?, String) -> Void
+
 class QueryService {
     
     let defaultSession = URLSession(configuration: .default)
     
     var dataTask: URLSessionDataTask?
     var errorMessage = ""
-    var dataImage: [JsonDataImage] = []
+    var resultDict: [String: [JsonDataImage]] = [:]
     
-    
-    typealias JSONDictionary = [String: Any]
-    typealias QueryResult = ([JsonDataImage]?, String) -> Void
     
     func getSearchResults(searchTerm: String, completion: @escaping QueryResult) {
         
@@ -40,7 +40,7 @@ class QueryService {
                         self?.updateSearchResults(data)
                         
                         DispatchQueue.main.async {
-                            completion(self?.dataImage, self?.errorMessage ?? "")
+                            completion(self?.resultDict, self?.errorMessage ?? "" )
                         }
                     }
             }
@@ -50,13 +50,13 @@ class QueryService {
         
         
         DispatchQueue.main.async {
-            completion(self.dataImage, self.errorMessage)
+            completion(self.resultDict, self.errorMessage)
         }
     }
     
     func updateSearchResults(_ data: Data) {
         var response: JSONDictionary?
-        dataImage.removeAll()
+        resultDict.removeAll()
         
         do {
             response = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary
@@ -81,7 +81,13 @@ class QueryService {
                     let previewURLSong = URL(string: previewURLSongString),
                     let collectionName = trackDictionary["collectionName"] as? String,
                     let trackName = trackDictionary["trackName"] as? String {
-                    dataImage.append(JsonDataImage(artistName: artistName, artistId: artistId, previewURL: previewURL, previewURLSong: previewURLSong, collectionName: collectionName, trackName: trackName))
+                    let artistIDString = String(artistId)
+                    if !resultDict.keys.contains(artistIDString) {
+                        resultDict[artistIDString] = []
+                    }
+                    var array = resultDict[artistIDString]!
+                    array.append(JsonDataImage(artistName: artistName, artistId: artistId, previewURL: previewURL, previewURLSong: previewURLSong, collectionName: collectionName, trackName: trackName))
+                    resultDict[artistIDString] = array
                 } else {
                     errorMessage += "Problem parsing trackDictionary\n"
                 }

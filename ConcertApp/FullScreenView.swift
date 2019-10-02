@@ -78,7 +78,7 @@ extension FullScreenView: UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ResizedCollectionViewCell
         
         if let url = self.artistDescription?.previewURL[indexPath.row] {
-            RequestsManager.shared.downloadImage(from: url) { (data) in
+            RequestsManager.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
                     cell.img.image = UIImage(data: data)
                 }

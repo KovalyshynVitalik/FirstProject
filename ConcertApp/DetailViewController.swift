@@ -26,12 +26,12 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     
     @IBOutlet weak var lbl: UILabel!
     @IBOutlet weak var eventCollectionView: UICollectionView!
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var pageView: UIPageControl!
     @IBOutlet weak var eventCollectionLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var progressLabel: UILabel!
-    
+    @IBOutlet weak var collectionName: UILabel!
+    @IBOutlet weak var trackName: UILabel!
     
     
     var imgArray: [UIImage] = []
@@ -41,28 +41,26 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var searchResults: [JsonDataImage] = []
     let downloadService = DownloadService()
-    var activeDownloads: [URL: Download] = [ : ]
     var isDownloadPressed = false
+    var isDeletePressed = false
+    var isPlayPressed = false
     let progress = Progress(totalUnitCount: 10)
-    lazy var downloadsSession: URLSession = {
-        let configuration = URLSessionConfiguration.background(withIdentifier:
-            "com.raywenderlich.HalfTunes.bgSession")
-        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-    }()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        progressView.isHidden = true
         
+        let configuration = URLSessionConfiguration.background(withIdentifier:
+            "com.raywenderlich.HalfTunes.bgSession")
+        let downloadsSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         downloadService.downloadsSession = downloadsSession
         populateUIWithModel()
         textSetup()
         setUpLayout()
-        pageView.numberOfPages = imgArray.count
-        pageView.currentPage = 0
+//        pageView.numberOfPages = imgArray.count
+//        pageView.currentPage = 0
+        
         
     }
     
@@ -78,37 +76,41 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         let action = UIAlertAction(title: "Download", style: .default) { (action) in
             self.downloadService.startDownload(track)
             self.isDownloadPressed = true
-//            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-//                guard self.progress.isFinished == false else {
-//                    timer.invalidate()
-//                    print("finished")
-//                    return
-//                }
-//            })
             self.progress.completedUnitCount += 1
             let progressFloat = Float(self.progress.fractionCompleted)
             self.progressView.setProgress(progressFloat, animated: true)
-        }
-        
-        if !self.isDownloadPressed {
-            alertController.addAction(action)
+            self.isDeletePressed = false
+            self.isPlayPressed = false
+            self.progressView.isHidden = false
         }
         
         let action1 = UIAlertAction(title: "Delete", style: .default) { (action) in
             self.removeTrack(track: url)
             self.isDownloadPressed = false
-            self.progressView.progress = 0
             self.progressLabel.text = "Deleted"
+            self.progressView.progress = 0
         }
         
         let action2 = UIAlertAction(title: "Play", style: .default) { (action) in
-            
             self.playDownload(track)
             
         }
-//        progressView.isHidden = !isDownloadPressed
-        alertController.addAction(action1)
-        alertController.addAction(action2)
+        
+        if !self.isDownloadPressed {
+            alertController.addAction(action)
+            self.isDeletePressed = true
+            self.isPlayPressed = true
+            self.progressView.isHidden = true
+        }
+        
+        if !self.isDeletePressed {
+            alertController.addAction(action1)
+        }
+        
+        if !self.isPlayPressed {
+            alertController.addAction(action2)
+        }
+
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
         }))
         
@@ -116,6 +118,12 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         
     }
     
+    func removeProgressView() {
+        DispatchQueue.main.async{
+            self.progressView.isHidden = true
+            self.progressLabel.isHidden = true
+        }
+    }
     
     func updateDisplay(progress: Float, totalSize : String) {
         progressView.progress = progress
@@ -124,13 +132,14 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     
     
     
-    let items = [""]
     
     @IBAction func shareButton(_ sender: Any) {
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [imgArray, lbl.text as Any], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         self.present(activityVC, animated: true,completion: nil)
     }
+    
+
     
     
     func populateUIWithModel() {
@@ -189,8 +198,8 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     }
     
     func textSetup() {
-        self.textView.text = self.artistDescription?.trackName
-        self.textView.text = self.artistDescription?.collectionName
+        self.trackName.text = "Track name - \(self.artistDescription?.trackName ?? "" )"
+        self.collectionName.text = "Collection name - \(self.artistDescription?.collectionName ?? "" )"
     }
     
     
@@ -215,7 +224,7 @@ extension DetailViewController: UICollectionViewDataSource,UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewEventCell
         //        let track = searchResults[indexPath.row]
         if let url = self.artistDescription?.previewURL[indexPath.row] {
-            RequestsManager.shared.downloadImage(from: url) { (data) in
+            RequestsManager.downloadImage(from: url) { (data) in
                 DispatchQueue.main.async {
                     cell.imageView.image = UIImage(data: data)
                 }
@@ -274,6 +283,8 @@ extension DetailViewController: URLSessionDownloadDelegate {
         guard
             let url = downloadTask.originalRequest?.url,
             let download = downloadService.activeDownloads[url]  else {
+                print(downloadTask.originalRequest?.url?.absoluteString)
+                print(downloadService.activeDownloads.map({ $0.value.track.previewURLSong }))
                 return
         }
         
