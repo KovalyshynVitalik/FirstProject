@@ -10,29 +10,17 @@ import UIKit
 import UPCarouselFlowLayout
 import AVKit
 
-
-
-
 class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDelegate {
-    
-    
-    
-    var eventImageNames: ConcertDetails? {
-        didSet {
-            
-        }
-    }
+    var eventImageNames: ConcertDetails?
     var artistDescription: JsonDataImage?
     
-    @IBOutlet weak var lbl: UILabel!
-    @IBOutlet weak var eventCollectionView: UICollectionView!
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var pageView: UIPageControl!
-    @IBOutlet weak var eventCollectionLayout: UICollectionViewFlowLayout!
-    @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var progressLabel: UILabel!
-    
-    
+    @IBOutlet private weak var lbl: UILabel!
+    @IBOutlet private weak var eventCollectionView: UICollectionView!
+    @IBOutlet private weak var textView: UITextView!
+    @IBOutlet private weak var pageView: UIPageControl!
+    @IBOutlet private weak var eventCollectionLayout: UICollectionViewFlowLayout!
+    @IBOutlet private weak var progressView: UIProgressView!
+    @IBOutlet private weak var progressLabel: UILabel!
     
     var imgArray: [UIImage] = []
     
@@ -40,32 +28,21 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     var counter = 0
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var searchResults: [JsonDataImage] = []
-    let downloadService = DownloadService()
-    var activeDownloads: [URL: Download] = [ : ]
+    let downloadService = DownloadService.shared
+    var activeDownloads: [URL: Download] = [:]
     var isDownloadPressed = false
     let progress = Progress(totalUnitCount: 10)
-    lazy var downloadsSession: URLSession = {
-        let configuration = URLSessionConfiguration.background(withIdentifier:
-            "com.raywenderlich.HalfTunes.bgSession")
-        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-    }()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        downloadService.downloadsSession = downloadsSession
+        downloadService.delegate = self
         populateUIWithModel()
         textSetup()
         setUpLayout()
         pageView.numberOfPages = imgArray.count
         pageView.currentPage = 0
-        
+        progressLabel.text = "fknsdlgknfds"
     }
-    
     
     @IBAction func showButton(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -75,7 +52,10 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
         
         let url = self.localFilePath(for: track.previewURLSong)
         
-        let action = UIAlertAction(title: "Download", style: .default) { (action) in
+        let action = UIAlertAction(title: "Download", style: .default) { [weak self] (action) in
+            guard let self = self else {
+                return
+            }
             self.downloadService.startDownload(track)
             self.isDownloadPressed = true
 //            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
@@ -85,23 +65,29 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
 //                    return
 //                }
 //            })
-            self.progress.completedUnitCount += 1
-            let progressFloat = Float(self.progress.fractionCompleted)
-            self.progressView.setProgress(progressFloat, animated: true)
+//            self.progress.completedUnitCount += 1
+//            let progressFloat = Float(self.progress.fractionCompleted)
+            self.progressView.setProgress(0, animated: true)
         }
         
         if !self.isDownloadPressed {
             alertController.addAction(action)
         }
         
-        let action1 = UIAlertAction(title: "Delete", style: .default) { (action) in
+        let action1 = UIAlertAction(title: "Delete", style: .default) { [weak self] (action) in
+            guard let self = self else {
+                return
+            }
             self.removeTrack(track: url)
             self.isDownloadPressed = false
             self.progressView.progress = 0
             self.progressLabel.text = "Deleted"
         }
         
-        let action2 = UIAlertAction(title: "Play", style: .default) { (action) in
+        let action2 = UIAlertAction(title: "Play", style: .default) { [weak self] (action) in
+            guard let self = self else {
+                return
+            }
             
             self.playDownload(track)
             
@@ -118,16 +104,13 @@ class DetailViewController: UIViewController, UITextViewDelegate, URLSessionDele
     
     
     func updateDisplay(progress: Float, totalSize : String) {
-        progressView.progress = progress
+        print("+++ progress \(progress)")
+        progressView.setProgress(progress, animated: true)
         progressLabel.text = String(format: "%.1f%% of %@", progress * 100, totalSize)
     }
     
-    
-    
-    let items = [""]
-    
     @IBAction func shareButton(_ sender: Any) {
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [""], applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.view
         self.present(activityVC, animated: true,completion: nil)
     }
@@ -271,17 +254,18 @@ extension DetailViewController: URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
                     didWriteData bytesWritten: Int64, totalBytesWritten: Int64,
                     totalBytesExpectedToWrite: Int64) {
-        guard
-            let url = downloadTask.originalRequest?.url,
-            let download = downloadService.activeDownloads[url]  else {
+        guard let url = downloadTask.originalRequest?.url,
+            let download = downloadService.activeDownloads[url] else {
                 return
         }
         
         download.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
         
         let totalSize = ByteCountFormatter.string(fromByteCount: totalBytesExpectedToWrite, countStyle: .file)
-        
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.updateDisplay(progress: download.progress, totalSize: totalSize)
         }
     }

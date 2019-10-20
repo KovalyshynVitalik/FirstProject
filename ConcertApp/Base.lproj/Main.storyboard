@@ -108,6 +108,9 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C2W-ca-AVG">
                                 <rect key="frame" x="0.0" y="134" width="375" height="251"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="251" id="Jvn-xx-srg"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KfD-1z-qEV">
                                     <size key="itemSize" width="376" height="238"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -193,7 +196,6 @@
                         <constraints>
                             <constraint firstItem="n0f-mO-F6o" firstAttribute="trailing" secondItem="dDp-UI-eEx" secondAttribute="trailing" id="2oe-C6-4jj"/>
                             <constraint firstItem="Sc7-fY-8sl" firstAttribute="top" secondItem="dDp-UI-eEx" secondAttribute="top" id="33f-5I-Lka"/>
-                            <constraint firstItem="B8M-fP-HQx" firstAttribute="top" secondItem="qkJ-sj-crA" secondAttribute="bottom" constant="56" id="3EM-oG-ljP"/>
                             <constraint firstAttribute="trailing" secondItem="C2W-ca-AVG" secondAttribute="trailing" id="4Mq-7G-oae"/>
                             <constraint firstItem="C2W-ca-AVG" firstAttribute="top" secondItem="ngf-QB-Frs" secondAttribute="bottom" id="6rr-46-ooy"/>
                             <constraint firstItem="dDp-UI-eEx" firstAttribute="trailing" secondItem="B8M-fP-HQx" secondAttribute="trailing" constant="113" id="Bu8-80-j94"/>
@@ -213,6 +215,7 @@
                             <constraint firstItem="C2W-ca-AVG" firstAttribute="leading" secondItem="td1-pD-Gzs" secondAttribute="leading" id="YRW-86-1xI"/>
                             <constraint firstItem="CZ7-gJ-5uX" firstAttribute="top" secondItem="n0f-mO-F6o" secondAttribute="bottom" constant="59" id="awY-Dk-R74"/>
                             <constraint firstItem="ngf-QB-Frs" firstAttribute="top" secondItem="dDp-UI-eEx" secondAttribute="top" constant="40" id="fuy-qa-UNR"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qkJ-sj-crA" secondAttribute="trailing" constant="20" symbolic="YES" id="kua-nw-lvS"/>
                             <constraint firstItem="C2W-ca-AVG" firstAttribute="trailing" secondItem="n0f-mO-F6o" secondAttribute="trailing" id="r2C-Qx-kJb"/>
                             <constraint firstItem="CZ7-gJ-5uX" firstAttribute="leading" secondItem="td1-pD-Gzs" secondAttribute="leadingMargin" constant="70" id="r44-sJ-Hu4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CZ7-gJ-5uX" secondAttribute="trailing" constant="70" id="swh-LE-zUo"/>
